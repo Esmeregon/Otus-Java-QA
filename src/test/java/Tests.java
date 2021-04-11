@@ -16,19 +16,19 @@ public class Tests {
     protected static WebDriver driver;
 
     @Before
-    public void StartUp(){
+    public void startUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
     @After
-    public void End(){
+    public void end(){
         if (driver!=null)
             driver.quit();
     }
 
     @Test
-    public void CheckingTitle(){
+    public void checkingTitle(){
         driver.get(cfg.url());
         logger.info("Перешли на сайт otus.ru");
         Assert.assertEquals("Онлайн‑курсы для профессионалов, дистанционное обучение современным профессиям", driver.getTitle());
