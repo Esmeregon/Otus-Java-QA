@@ -25,7 +25,7 @@ public class MarketPage {
 
     private final By suitableResults = By.xpath("//div[@data-zone-name= 'snippetList']");
     private final By confirmMessage = By.xpath("//div[@class = '_1_ABPFjOJQ']");
-    private final By comparisonButton = By.xpath("//span[contains( text(),'Сравнить')]");
+    private final By comparisonButton = By.xpath("//a[@href = '/my/compare-lists']");
     private final By comparisonList = By.xpath("//div[@data-tid= '412661c']");
 
 
