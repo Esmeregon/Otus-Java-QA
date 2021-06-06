@@ -4,32 +4,30 @@ import org.junit.Test;
 import org.openqa.selenium.support.PageFactory;
 
 
+
+
 public class Tests extends SeleniumSettings{
 
-    String email = "";
-    String password = "";
 
     private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
 
 
     @Test
-    public void checkingProductComparison(){
+    public void checkingClientData() {
         AccountPage accountPage = PageFactory.initElements(driver, AccountPage.class);
         CoursesPage coursesPage = PageFactory.initElements(driver, CoursesPage.class);
         SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
 
         coursesPage.goToOtus();
-        signInPage.logIn(email, password);
-        coursesPage.accountLink();
-        accountPage.personalInfoMenu();
-        accountPage.completePersonalInfo();
+        signInPage.logIn(cfg.email(), cfg.password());
+        coursesPage.goToAccountSettings();
+        accountPage.fillingPersonalData();
 
         driver.manage().deleteAllCookies();
 
         coursesPage.goToOtus();
-        signInPage.logIn(email, password);
-        coursesPage.accountLink();
-        accountPage.personalInfoMenu();
+        signInPage.logIn(cfg.email(), cfg.password());
+        coursesPage.goToAccountSettings();
 
         Assert.assertEquals(cfg.name(), driver.findElement(accountPage.nameField).getAttribute("value"));
         Assert.assertEquals(cfg.surname(), driver.findElement(accountPage.surnameField).getAttribute("value"));

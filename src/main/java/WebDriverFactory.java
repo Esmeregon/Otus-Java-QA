@@ -30,7 +30,7 @@ public class WebDriverFactory {
         switch (type){
             case CHROME:
                 WebDriverManager.chromedriver().setup();
-                return new ChromeDriver( (ChromeOptions) wdOptions);
+                return new ChromeDriver((ChromeOptions) wdOptions);
             case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
                 return new FirefoxDriver((FirefoxOptions) wdOptions);
