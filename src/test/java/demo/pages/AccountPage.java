@@ -14,8 +14,8 @@ public class AccountPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-
     private final By title = By.xpath("//h1[@class = 'title__text']");
+
 
     /**
      * В методе AccountPage происходит инициализация веб-драйвера,
@@ -27,9 +27,12 @@ public class AccountPage {
         wait = new WebDriverWait(driver,10);
     }
 
+    /**
+     * В методе checkedPageTitle() осуществляется поиск заголовка страницы
+     * @return title страницы Личный кабинет
+     */
     public String checkedPageTitle(){
         logger.info("Проверили title страницы");
         return driver.findElement(title).getText();
     }
-
 }

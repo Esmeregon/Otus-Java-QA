@@ -12,7 +12,7 @@ import org.junit.Assert;
 public class MyStepdefsParamitrized extends SeleniumSettings {
 
     @Before
-    public void initialization(){
+    public  void initialization(){
         startUp();
     }
 

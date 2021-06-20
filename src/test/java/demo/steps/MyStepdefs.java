@@ -22,13 +22,13 @@ public class MyStepdefs extends SeleniumSettings{
         end();
     }
 
-    @Given("We went to the website")
-    public void weWentToTheWebsite() {
+    @Given("The user went to the website")
+    public void theUserWentToTheWebsite() {
         coursesPage.goToOtus();
     }
 
-    @When("We go through authorization on the site")
-    public void weGoThroughAuthorizationOnTheSite() {
+    @When("The user go through authorization on the site")
+    public void theUserGoThroughAuthorizationOnTheSite() {
         coursesPage.goToSignInPage();
         signInPage.logIn(cfg.email(), cfg.password());
     }
@@ -38,8 +38,8 @@ public class MyStepdefs extends SeleniumSettings{
         coursesPage.goToAccountSettings();
     }
 
-    @Then("We have checked the title of the personal account page")
-    public void weHaveCheckedTheTitleOfThePersonalAccountPage() {
+    @Then("The system should display the page title")
+    public void theSystemShouldDisplayThePageTitle () {
         Assert.assertEquals( "Личный кабинет", accountPage.checkedPageTitle());
     }
 }

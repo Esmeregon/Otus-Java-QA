@@ -17,7 +17,6 @@ public class SignInPage {
     private final By logInField = By.xpath("//input[@type= 'text'][@placeholder= 'Электронная почта']");
     private final By passwordField = By.xpath("//input[@name = 'password']");
     private final By submitButton = By.xpath("//button[@class = 'new-button new-button_full new-button_blue new-button_md']");
-
     private final By errorAuthorizationMessage = By.xpath("//div[@class = 'new-input-error new-input-error_top new-input-error_form js-text']");
 
     /**
@@ -43,11 +42,13 @@ public class SignInPage {
         logger.info("Прошли авторизацию на сайте");
     }
 
+    /**
+     * В методе getErrorAuthorizationMessage() происходит поиск сообщения об ошибки авторизации
+     * @return текст ошибки
+     */
     public String getErrorAuthorizationMessage(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(errorAuthorizationMessage));
         logger.info("Получили сообщение об ошибке авторизации");
         return driver.findElement(errorAuthorizationMessage).getText();
     }
-
-
 }

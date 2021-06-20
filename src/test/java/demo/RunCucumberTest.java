@@ -9,8 +9,11 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"pretty"},
         features = "src/test/resources/features",
-        glue = {"demo.steps"}
-
+        glue = {"demo.steps"},
+        tags = {
+        //           "@signInTests"
+        //        ,  "@accountTests"
+        }
 )
 public class RunCucumberTest {
 }

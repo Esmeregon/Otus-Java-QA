@@ -16,8 +16,8 @@ public class CoursesPage {
 
    private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
    private final Logger logger = LogManager.getLogger(RunCucumberTest.class);
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+   private final WebDriver driver;
+   private final WebDriverWait wait;
 
     private final By menu = By.xpath("//div[@class='header2-menu__item-wrapper header2-menu__item-wrapper__username']");
     private final By accountLink = By.xpath("//a[@href='/lk/biography/personal/']");
@@ -43,7 +43,7 @@ public class CoursesPage {
     }
 
     /**
-     * В методе accountLink() осуществляется переход на страницу личного кабинета
+     * В методе goToAccountSettings() осуществляется переход на страницу личного кабинета
      */
     public void goToAccountSettings(){
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(menu));
@@ -53,10 +53,12 @@ public class CoursesPage {
         logger.info("Перешли в Личный кабинет");
     }
 
+    /**
+     * В методе goToSignInPage() осуществляется переход на страницу авторизации
+     */
     public void goToSignInPage(){
         wait.until(ExpectedConditions.elementToBeClickable(logInButton));
         driver.findElement(logInButton).click();
         logger.info("Перешли на страницу авторизации");
     }
-
 }
