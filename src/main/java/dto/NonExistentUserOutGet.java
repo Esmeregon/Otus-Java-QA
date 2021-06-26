@@ -1,6 +1,9 @@
 package dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @Data
@@ -8,8 +11,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @AllArgsConstructor
 @JsonSerialize
 @NoArgsConstructor
-@NonNull
-public class UserOut {
+public class NonExistentUserOutGet {
     private Long code;
     private String message;
     private String type;

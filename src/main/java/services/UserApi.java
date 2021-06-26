@@ -19,7 +19,13 @@ public class UserApi {
                 .contentType(ContentType.JSON);
     }
 
-    public Response createUser(User user) {
+
+    /**
+     * В методе createUser() содержится api для создания нового пользователя
+     * @param user Объект, сощдержащий информацию о пользователе
+     * @return POST-запрос на создание нового пользователя
+     */
+    public Response createUser(User user){
         return
                 given(spec)
                         .with()
@@ -27,5 +33,18 @@ public class UserApi {
                         .log().all()
                         .when()
                         .post(USER);
+    }
+
+
+    /**
+     * В методе getUser() содержится api для получения детальной информации о пользователе
+     * @param userName имя пользователя
+     * @return GET-запрос на получение информации о пользователе
+     */
+    public Response getUser(String userName){
+        return
+                given(spec)
+                        .when()
+                        .get(USER + "/" + userName);
     }
 }

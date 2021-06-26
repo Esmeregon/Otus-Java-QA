@@ -1,9 +1,6 @@
 package dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 
@@ -11,6 +8,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @Builder
 @AllArgsConstructor
 @JsonSerialize
+@NoArgsConstructor
 public class User {
     private String email;
     private String firstName;
