@@ -16,9 +16,15 @@ public class FirstTest extends TestNGCitrusTestRunner{
     private HttpClient restClient;
     private TestContext context;
 
+
+
+    /**
+     * В тесте getSingleUser() происходит отправка запроса на получение информации о пользователе
+     * Осуществляется проверка контракта получения существующего пользователя
+     */
     @Test(description = "GET SINGLE USER")
     @CitrusTest
-    public void getTestsActions(){
+    public void getSingleUser(){
         this.context = citrus.createTestContext();
 
         http(httpActionBuilder -> httpActionBuilder
@@ -50,9 +56,13 @@ public class FirstTest extends TestNGCitrusTestRunner{
     }
 
 
+    /**
+     * В тесте getSingleUserNotFound() происходит отправка запроса на получение информации о несуществующем пользователе
+     * Осуществляется проверка контракта получения несуществующего пользователя
+     */
     @Test(description = "GET SINGLE USER NOT FOUND")
     @CitrusTest
-    public void getTestsActions2(){
+    public void getSingleUserNotFound(){
         this.context = citrus.createTestContext();
 
         http(httpActionBuilder -> httpActionBuilder
@@ -71,9 +81,13 @@ public class FirstTest extends TestNGCitrusTestRunner{
     }
 
 
+    /**
+     * В тесте getListUsers() происходит отправка запроса на получение информации о списке существующих пользователей
+     * Осуществляется проверка контракта получения списка существующих пользователей
+     */
     @Test(description = "GET LIST USERS")
     @CitrusTest
-    public void getTestsActions3(){
+    public void getListUsers(){
         this.context = citrus.createTestContext();
 
         http(httpActionBuilder -> httpActionBuilder
@@ -146,9 +160,13 @@ public class FirstTest extends TestNGCitrusTestRunner{
     }
 
 
+    /**
+     * В тесте getSingleResource() происходит отправка запроса на получение информации о ресурсе
+     * Осуществляется проверка контракта получения существующего ресурса
+     */
     @Test(description = "GET SINGLE <RESOURCE>")
     @CitrusTest
-    public void getTestsActions4(){
+    public void getSingleResource(){
         this.context = citrus.createTestContext();
 
         http(httpActionBuilder -> httpActionBuilder
@@ -179,9 +197,13 @@ public class FirstTest extends TestNGCitrusTestRunner{
     }
 
 
+    /**
+     * В тесте getSingleResourceNotFound() происходит отправка запроса на получение информации о несуществующем ресурсе
+     * Осуществляется проверка контракта получения несуществующего ресурса
+     */
     @Test(description = "GET SINGLE <RESOURCE> NOT FOUND")
     @CitrusTest
-    public void getTestsActions5(){
+    public void getSingleResourceNotFound(){
         this.context = citrus.createTestContext();
 
         http(httpActionBuilder -> httpActionBuilder
