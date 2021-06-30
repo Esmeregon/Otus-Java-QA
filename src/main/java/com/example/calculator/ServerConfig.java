@@ -1,5 +1,5 @@
 package com.example.calculator;
-
+/*
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.Config.Sources;
 
@@ -14,4 +14,4 @@ public interface ServerConfig extends Config {
     Integer division();
     Integer squareNumber1();
     double squareRootNumber1();
-}
+}*/
