@@ -7,7 +7,7 @@ public class APIClientHelper {
 
     private static Retrofit retrofit = null;
 
-    public static final String BASE_URL = "http:/reqres.in/api/users/";
+    public static final String BASE_URL = "https:/reqres.in/api/";
 
 
     static Retrofit getClient() {

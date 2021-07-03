@@ -1,5 +1,6 @@
-package com.example.apihelpers.pojo;
+package com.example.apihelpers.pojo.singleUser;
 
+import com.example.apihelpers.pojo.singleResource.ResourceData;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,25 +10,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User {
 
     @JsonProperty("data")
-    private Data data;
+    private UserData userData;
 
     @JsonProperty("support")
-    private Support support;
+    private UserSupport userSupport;
 
-
-    public Data getData() {
-        return data;
+    public UserData getUserData() {
+        return userData;
     }
 
-    public Support getSupport() {
-        return support;
+    public UserSupport getSupport() {
+        return userSupport;
     }
 
-    @Override
     public String toString() {
         return "User{" +
-                "data=" + data +
-                ", support=" + support +
+                "data=" + userData +
+                ", support=" + userSupport +
                 '}';
     }
 }

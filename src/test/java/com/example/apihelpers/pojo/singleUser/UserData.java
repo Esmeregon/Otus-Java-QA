@@ -1,4 +1,4 @@
-package com.example.apihelpers.pojo;
+package com.example.apihelpers.pojo.singleUser;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -7,7 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Data {
+public class UserData {
+
     @JsonProperty("id")
     private Integer id;
 
@@ -22,7 +23,6 @@ public class Data {
 
     @JsonProperty("avatar")
     private String avatar;
-
 
     public Integer getId() {
         return id;
@@ -46,11 +46,11 @@ public class Data {
 
     @Override
     public String toString() {
-        return "Data{" +
+        return "UserData{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", first_name='" + firstName + '\'' +
-                ", last_name='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", avatar='" + avatar + '\'' +
                 '}';
     }
