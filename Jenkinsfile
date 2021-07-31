@@ -12,7 +12,7 @@ pipeline {
         string(name: 'GIT_URL', defaultValue: 'https://github.com/Esmeregon/Otus-Java-QA.git', description: 'The target git url')
         string(name: 'GIT_BRANCH', defaultValue: 'allure', description: 'The target git branch')
         choice(name: 'BROWSER_NAME', choices: ['chrome', 'firefox'], description: 'Pick the target browser in Selenoid')
-        choice(name: 'BROWSER_VERSION', choices: ['86.0', '85.0', '78.0'], description: 'Pick the target browser version in Selenoid')
+        choice(name: 'BROWSER_VERSION', choices: ['86.0', '85.0', '78.0', '80.0'], description: 'Pick the target browser version in Selenoid')
     }
 
     stages {
