@@ -29,6 +29,7 @@ pipeline {
         }
         stage('Run maven clean test') {
             steps {
+		// sh меняем на bat, если операционная система Windows
                 bat 'mvn clean test'
             }
         }
@@ -55,6 +56,7 @@ pipeline {
                       results: [[path: 'target/allure-results']]
                     ])
                     println('allure report created')
+
 
                     // Узнаем ветку репозитория
                     def branch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD\n').trim().tokenize().last()
