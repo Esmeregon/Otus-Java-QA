@@ -73,7 +73,7 @@ pipeline {
 		    def branch = bat(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD\n').trim().tokenize().last()
 		    def emailMessage = "${currentBuild.currentResult}: Job '${env.JOB_NAME}', Build ${env.BUILD_NUMBER}, Branch ${branch}. \nPassed time: ${currentBuild.durationString}. \n\nTESTS:\nTotal = ${summary.totalCount},\nFailures = ${summary.failCount},\nSkipped = ${summary.skipCount},\nPassed = ${summary.passCount} \n\nMore info at: ${env.BUILD_URL}"
 
-		    emailext (
+		    emailText (
 		        subject: "Jenkins Report",
 		        body: emailMessage,
 		        to: "${EMAIL_TO}",
@@ -90,3 +90,4 @@ pipeline {
             }
         }
     }
+}
