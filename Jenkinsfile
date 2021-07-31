@@ -33,7 +33,7 @@ pipeline {
         stage('Run maven clean test') {
             steps {
 		// sh меняем на bat, если операционная система Windows
-                bat 'clean test'
+                sh 'mvn clean test'
             }
         }
         stage('Backup and Reports') {
@@ -55,7 +55,7 @@ pipeline {
                     println('allure report created')
 
                     // Узнаем ветку репозитория
-                    def branch = bat(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD\n').trim().tokenize().last()
+                    def branch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD\n').trim().tokenize().last()
                     println("branch= " + branch)
 
                     // Достаем информацию по тестам из junit репорта
