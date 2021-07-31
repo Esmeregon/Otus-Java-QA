@@ -30,7 +30,7 @@ pipeline {
         stage('Run maven clean test') {
             steps {
 		// sh меняем на bat, если операционная система Windows
-                bat 'clean test'
+                bat 'maven clean test'
             }
         }
         stage('Backup and Reports') {
