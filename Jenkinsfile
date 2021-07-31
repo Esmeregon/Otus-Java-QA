@@ -68,7 +68,7 @@ pipeline {
 					emailText (
 						subject: "Jenkins Report",
 						body: emailMessage,
-						to: "d46393298@gmail.com",
+						to: "${EMAIL_TO}",
 						from: "jenkins@code-maven.com"
 					)
 
