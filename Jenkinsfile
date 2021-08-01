@@ -76,7 +76,6 @@ pipeline {
 					def slackMessage = "${currentBuild.currentResult}: Job '${env.JOB_NAME}', Build ${env.BUILD_NUMBER}. \nTotal = ${summary.totalCount}, Failures = ${summary.failCount}, Skipped = ${summary.skipCount}, Passed = ${summary.passCount} \nMore info at: ${env.BUILD_URL}"
 
 					slackSend(color: colorCode, message: slackMessage)
-
 					}
                   }
                 }
