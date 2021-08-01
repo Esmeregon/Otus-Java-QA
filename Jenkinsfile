@@ -68,22 +68,9 @@ pipeline {
 					emailext (
 						subject: 'Jenkins Report',
 						body: emailMessage,
-						to: 'd46393298@gmail.com'
-					//	to: "${EMAIL_TO}",
-					//	from: 'jenkins@code-maven.com'
+						to: "${EMAIL_TO}",
+						from: 'jenkins@code-maven.com'
 					)
-
-/*
-                    emailext subject: '$DEFAULT_SUBJECT',
-                        body: emailMessage,
-                        recipientProviders: [
-                            [$class: 'CulpritsRecipientProvider'],
-                            [$class: 'DevelopersRecipientProvider'],
-                            [$class: 'RequesterRecipientProvider']
-                        ],
-                        replyTo: '$DEFAULT_REPLYTO',
-                        to: '$DEFAULT_RECIPIENTS'
-*/
 
 					def colorCode = '#FF0000'
 					def slackMessage = "${currentBuild.currentResult}: Job '${env.JOB_NAME}', Build ${env.BUILD_NUMBER}. \nTotal = ${summary.totalCount}, Failures = ${summary.failCount}, Skipped = ${summary.skipCount}, Passed = ${summary.passCount} \nMore info at: ${env.BUILD_URL}"
