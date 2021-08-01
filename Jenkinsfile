@@ -68,8 +68,9 @@ pipeline {
 					emailext (
 						subject: 'Jenkins Report',
 						body: emailMessage,
-						to: '${EMAIL_TO}',
-						from: 'jenkins@code-maven.com'
+						to: 'd46393298@gmail.com'
+					//	to: "${EMAIL_TO}",
+					//	from: 'jenkins@code-maven.com'
 					)
 
 /*
