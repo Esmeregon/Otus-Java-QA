@@ -24,6 +24,7 @@ public class EventPlatformToolbar {
 
 
     private final  By eventsLink = By.xpath("//ul[@class = 'evnt-navigation navbar-nav']//a[@href= '/events']");
+    private final  By talksLibraryLink = By.xpath("//ul[@class = 'evnt-navigation navbar-nav']//a[@href= '/video?f%5B0%5D%5Bmedia%5D%5B%5D=Video']");
 
 
     public void goToEventsDigitalPlatform(){
@@ -35,5 +36,11 @@ public class EventPlatformToolbar {
         wait.until(ExpectedConditions.elementToBeClickable(eventsLink));
         driver.findElement(eventsLink).click();
         logger.info("Перешли на вкладку Events");
+    }
+
+    public void goToTalksLibrary(){
+        wait.until(ExpectedConditions.elementToBeClickable(talksLibraryLink));
+        driver.findElement(talksLibraryLink).click();
+        logger.info("Перешли на вкладку Talks Library");
     }
 }

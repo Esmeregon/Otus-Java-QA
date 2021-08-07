@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import pages.EventPlatformToolbar;
 import pages.EventViewPage;
 import pages.EventsPage;
+import pages.TalksLibraryPage;
 import utils.SeleniumSettings;
 
 import java.text.ParseException;
@@ -32,7 +33,7 @@ public class ApplicationTests extends SeleniumSettings {
         eventPlatformToolbar.goToEventsDigitalPlatform();
         eventPlatformToolbar.goToEvents();
         eventsPage.goToUpcomingEventsTab();
-        eventsPage.checkingEventCardsCount();
+        eventsPage.checkingUpcomingEventCardsCount();
     }
 
     /**
@@ -84,7 +85,7 @@ public class ApplicationTests extends SeleniumSettings {
      * 4 На странице отображаются карточки прошедших мероприятий. Количество карточек равно счетчику на кнопке Past Events. Даты проведенных мероприятий меньше текущей даты.
      */
     @Test
-    public void viewPastEvents() {
+    public void viewPastEvents() throws ParseException {
         EventPlatformToolbar eventPlatformToolbar = PageFactory.initElements(driver, EventPlatformToolbar.class);
         EventsPage eventsPage = PageFactory.initElements(driver, EventsPage.class);
 
@@ -93,20 +94,46 @@ public class ApplicationTests extends SeleniumSettings {
         eventsPage.goToPastEventsTab();
         eventsPage.filtrationByLocation();
         eventsPage.checkingPastEventCardsCount();
+        eventsPage.checkingDatesPastEvent();
     }
 
+    /**
+     * Фильтрация докладов по категориям:
+     * 1 Пользователь переходит на вкладку Talks Library
+     * 2 Пользователь нажимает на More Filters
+     * 3 Пользователь выбирает: Category – Testing, Location – Belarus, Language – English, На вкладке фильтров
+     * 4 На странице отображаются карточки соответствующие правилам выбранных фильтров
+     */
     @Test
-    public void viewingDetailedInformationAboutTheEvent () {
+    public void filteringReportsByCategory (){
         EventPlatformToolbar eventPlatformToolbar = PageFactory.initElements(driver, EventPlatformToolbar.class);
-        EventsPage eventsPage = PageFactory.initElements(driver, EventsPage.class);
+        TalksLibraryPage talksLibraryPage = PageFactory.initElements(driver, TalksLibraryPage.class);
         EventViewPage eventViewPage = PageFactory.initElements(driver, EventViewPage.class);
 
         eventPlatformToolbar.goToEventsDigitalPlatform();
-        eventPlatformToolbar.goToEvents();
-        eventsPage.goToUpcomingEventsTab();
-        eventsPage.choiceOfEvent();
+        eventPlatformToolbar.goToTalksLibrary();
+        talksLibraryPage.viewFilters();
+        talksLibraryPage.selectALanguage();
+        talksLibraryPage.selectACategory();
+        talksLibraryPage.selectALocation();
+        talksLibraryPage.checkingCard();
         eventViewPage.checkingEventDetail();
-
     }
 
+
+    /**
+     * Поиск докладов по ключевому слову:
+     * 1 Пользователь переходит на вкладку VIDEO - Talks Library
+     * 2 Пользователь вводит ключевое слово QA в поле поиска
+     * 3 На странице отображаются доклады, содержащие в названии ключевое слово поиска
+     */
+    @Test
+    public void speechSearchByKeyword () {
+        EventPlatformToolbar eventPlatformToolbar = PageFactory.initElements(driver, EventPlatformToolbar.class);
+        TalksLibraryPage talksLibraryPage = PageFactory.initElements(driver, TalksLibraryPage.class);
+
+        eventPlatformToolbar.goToEventsDigitalPlatform();
+        eventPlatformToolbar.goToTalksLibrary();
+        talksLibraryPage.searchByKeyword();
+    }
 }

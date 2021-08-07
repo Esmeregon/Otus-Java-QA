@@ -23,16 +23,16 @@ public class EventViewPage {
         wait = new WebDriverWait(driver,10);
     }
 
-
-
-    private final By eventTitle = By.xpath("//div[@class = 'evnt-content-text edit-wrapper hero']//h1");
-
-    private final By registrationButton = By.xpath("//button[@id = 'no_reg_5583']");
+    private final By eventLanguage = By.xpath("//div[@class= 'evnt-talk-details language evnt-now-past-talk']");
+    private final By eventCategory = By.xpath("//label[contains(text(),'" + cfg.category() +"')]");
+    private final By eventLocation = By.xpath("//span[contains(text(),'" + cfg.libraryLocation() + "')]");
 
 
     public void checkingEventDetail() {
-        wait.until(ExpectedConditions.elementToBeClickable(registrationButton));
-        Assertions.assertNotNull(driver.findElement(registrationButton).getText());
+        wait.until(ExpectedConditions.visibilityOfElementLocated(eventLanguage));
+        Assertions.assertEquals(cfg.language(), driver.findElement(eventLanguage).getText());
+        Assertions.assertEquals(cfg.category(), driver.findElement(eventCategory).getText());
+        Assertions.assertTrue(driver.findElement(eventLocation).getText().contains(cfg.libraryLocation()));
         logger.info("Проверили содержимое страницы");
     }
 

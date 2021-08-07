@@ -14,4 +14,10 @@ public interface ServerConfig extends Config {
     String url();
 
     String location();
+
+    String category();
+    String libraryLocation();
+    String language();
+
+    String keyword();
 }

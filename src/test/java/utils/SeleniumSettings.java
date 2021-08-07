@@ -19,6 +19,8 @@ public class SeleniumSettings {
     @BeforeEach
     public void startUp(){
         driver = WebDriverFactory.createDriver(Browsers.valueOf(cfg.browser().toUpperCase(Locale.ROOT)));
+        assert driver != null;
+        driver.manage().window().maximize();
     }
 
     @AfterEach

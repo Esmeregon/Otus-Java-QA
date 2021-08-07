@@ -39,7 +39,6 @@ public class EventsPage {
     private final By pastEventsCount = By.xpath("//span[contains(text(),'Past Events')]/following-sibling::span[@class = 'evnt-tab-counter evnt-label small white']");
     private final By eventCards = By.xpath("//div[@class = 'evnt-events-column cell-3']//div[@class = 'evnt-card-wrapper']");
 
-    private final By eventLocation = By.xpath("//p[@class = 'online']");
     private final By eventLanguage = By.xpath("//p[@class = 'language']");
     private final By eventTitle = By.xpath("//h1[span]");
     private final By eventDate = By.xpath("//span[@class = 'date']");
@@ -56,7 +55,7 @@ public class EventsPage {
         logger.info("Пользователь переходит на Upcoming Events");
     }
 
-    public void checkingEventCardsCount(){
+    public void checkingUpcomingEventCardsCount(){
         wait.until(ExpectedConditions.elementToBeClickable(upcomingEventsTab));
         Assertions.assertEquals(eventCards().size(), Integer.parseInt(driver.findElement(upcomingEventsCount).getText()));
         logger.info("На странице отображаются карточки предстоящих мероприятий. Количество карточек равно счетчику на кнопке Upcoming Events");
@@ -66,7 +65,7 @@ public class EventsPage {
         return new ArrayList<>(driver.findElements(eventCards));
     }
 
-//ToDo: статус регистрации, спикеры ?
+
     public void checkingEventCards() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(eventCards));
         for (int i = 0; i < eventCards().size(); i++){
@@ -102,6 +101,15 @@ public class EventsPage {
         wait.until(ExpectedConditions.elementToBeClickable(upcomingEventsTab));
         Assertions.assertEquals(eventCards().size(), Integer.parseInt(driver.findElement(pastEventsCount).getText()));
         logger.info("На странице отображаются карточки предстоящих мероприятий. Количество карточек равно счетчику на кнопке Past Events");
+    }
+
+    public void checkingDatesPastEvent() throws ParseException {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(eventCards));
+        for (int i = 0; i < eventCards().size(); i++){
+            String endEventDate = getEndEventDate(driver.findElements(eventDate).get(i).getText());
+            Assertions.assertTrue((dateParser(endEventDate).before(getSystemDate())));
+        }
+        logger.info("Проверили даты прошедших событий");
     }
 
 
