@@ -17,7 +17,6 @@ public class SeleniumSettings {
     protected WebDriver driver;
     private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
 
-
     @BeforeEach
     public void startUp(){
         driver = initDriver(Browsers.valueOf(cfg.browser().toUpperCase(Locale.ROOT)));
