@@ -1,19 +1,23 @@
 package com.example.tests;
 
 import io.qameta.allure.*;
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.support.PageFactory;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.support.PageFactory;
+
 import pages.EventPlatformToolbar;
 import pages.EventViewPage;
 import pages.EventsPage;
 import pages.TalksLibraryPage;
 import utils.SeleniumSettings;
 
+
 import java.text.ParseException;
 
-
 @SpringBootTest
+@Execution(ExecutionMode.CONCURRENT)
 public class ApplicationTests extends SeleniumSettings {
 
     /**
@@ -119,7 +123,6 @@ public class ApplicationTests extends SeleniumSettings {
         talksLibraryPage.checkingCard();
         eventViewPage.checkingEventDetail();
     }
-
 
     /**
      * Поиск докладов по ключевому слову:

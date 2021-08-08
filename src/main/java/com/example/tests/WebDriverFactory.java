@@ -12,7 +12,7 @@ import org.openqa.selenium.opera.OperaOptions;
 
 public class WebDriverFactory {
 
-    public static WebDriver createDriver(Browsers type){
+    public static WebDriver initDriver(Browsers type){
         switch (type){
             case CHROME:
                 WebDriverManager.chromedriver().setup();
@@ -26,6 +26,8 @@ public class WebDriverFactory {
             default:
                 return null;
         }
+
+
     }
 
     public static WebDriver createDriver(Browsers type, MutableCapabilities wdOptions){

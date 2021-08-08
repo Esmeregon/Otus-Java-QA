@@ -88,5 +88,4 @@ public class TalksLibraryPage {
         }
         logger.info("Осуществили поиск по ключевому слову");
     }
-
 }

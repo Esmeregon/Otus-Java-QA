@@ -35,5 +35,4 @@ public class EventViewPage {
         Assertions.assertTrue(driver.findElement(eventLocation).getText().contains(cfg.libraryLocation()));
         logger.info("Проверили содержимое страницы");
     }
-
 }
