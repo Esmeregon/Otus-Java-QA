@@ -43,4 +43,5 @@ public class EventPlatformToolbar {
         driver.findElement(talksLibraryLink).click();
         logger.info("Перешли на вкладку Talks Library");
     }
+
 }
