@@ -18,19 +18,19 @@ import java.net.URL;
 
 public class WebDriverFactory {
 
-    public static WebDriver initDriver(){
+    public static WebDriver initDriver() {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setBrowserName("chrome");
         desiredCapabilities.setPlatform(Platform.WINDOWS);
         try {
-           return new RemoteWebDriver(new URL(""), desiredCapabilities);   //Указать свой адрес
+            return new RemoteWebDriver(new URL(""), desiredCapabilities);   //Указать свой адрес
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static WebDriver initDriver(Browsers type){
-        switch (type){
+    public static WebDriver initDriver(Browsers type) {
+        switch (type) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
                 return new ChromeDriver();
@@ -45,8 +45,8 @@ public class WebDriverFactory {
         }
     }
 
-    public static WebDriver initDriver(Browsers type, MutableCapabilities wdOptions){
-        switch (type){
+    public static WebDriver initDriver(Browsers type, MutableCapabilities wdOptions) {
+        switch (type) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
                 return new ChromeDriver((ChromeOptions) wdOptions);

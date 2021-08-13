@@ -1,18 +1,25 @@
 package com.example.tests;
 
-import io.qameta.allure.*;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import org.aeonbits.owner.ConfigFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.PageFactory;
-
+import org.springframework.boot.test.context.SpringBootTest;
 import pages.EventPlatformToolbar;
 import pages.EventViewPage;
 import pages.EventsPage;
 import pages.TalksLibraryPage;
+import utils.Base;
 import utils.SeleniumSettings;
-
 
 import java.text.ParseException;
 
@@ -20,24 +27,27 @@ import java.text.ParseException;
 @Execution(ExecutionMode.CONCURRENT)
 public class ApplicationTests extends SeleniumSettings {
 
+    private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
+    private final Logger logger = LogManager.getLogger(ApplicationTests.class);
+
     /**
      * Просмотр предстоящих мероприятий:
      * 1 Пользователь переходит на вкладку events
      * 2 На странице отображаются карточки предстоящих мероприятий. Количество карточек равно счетчику на кнопке Upcoming Events
      */
     @Test
-    @Severity(SeverityLevel.NORMAL)
+    @Severity(SeverityLevel.CRITICAL)
     @Epic("Otus")
-    @Feature("")
-    @Description("")
+    @DisplayName("View upcoming events")
+    @Description("The test describes a scenario in which the user goes to the events tab. The page displays cards for upcoming events. The number of cards is equal to the counter on the Upcoming Events button ")
     public void viewUpcomingEvents() {
         EventPlatformToolbar eventPlatformToolbar = PageFactory.initElements(driver, EventPlatformToolbar.class);
         EventsPage eventsPage = PageFactory.initElements(driver, EventsPage.class);
 
         eventPlatformToolbar.goToEventsDigitalPlatform();
         eventPlatformToolbar.goToEvents();
-        eventsPage.goToUpcomingEventsTab();
-        eventsPage.checkingUpcomingEventCardsCount();
+        Assertions.assertEquals(eventsPage.eventCards().size(), Integer.parseInt(driver.findElement(eventsPage.upcomingEventsCount).getText()));
+        logger.info("Убедились, что оличество карточек равно счетчику на кнопке Upcoming Events");
     }
 
     /**
@@ -46,13 +56,17 @@ public class ApplicationTests extends SeleniumSettings {
      * 2 Пользователь нажимает на Past Events
      * 3 На странице отображаются карточки предстоящих мероприятий.
      * 4 В карточке указана информация о мероприятии:
-     *      язык
-     *      название мероприятия
-     *      дата мероприятия
-     *      информация о регистрации
-     *      список спикеров // Минимально достаточное - проверить одну карточку. В идеале все что отображаются.
+     * язык
+     * название мероприятия
+     * дата мероприятия
+     * информация о регистрации
+     * список спикеров // Минимально достаточное - проверить одну карточку. В идеале все что отображаются.
      */
     @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Epic("Otus")
+    @DisplayName("View card info")
+    @Description("The test describes a scenario in which the event cards are viewed. The user navigates to the events tab. Goes to the Past Events tab. The page displays cards for upcoming events. The card contains information about the event")
     public void viewCardInfo() {
         EventPlatformToolbar eventPlatformToolbar = PageFactory.initElements(driver, EventPlatformToolbar.class);
         EventsPage eventsPage = PageFactory.initElements(driver, EventsPage.class);
@@ -60,7 +74,14 @@ public class ApplicationTests extends SeleniumSettings {
         eventPlatformToolbar.goToEventsDigitalPlatform();
         eventPlatformToolbar.goToEvents();
         eventsPage.goToPastEventsTab();
-        eventsPage.checkingEventCards();
+        for (int i = 0; i < eventsPage.eventCards().size(); i++) {
+            Assertions.assertNotNull(driver.findElements(eventsPage.eventLanguage).get(i).getText());
+            Assertions.assertNotNull(driver.findElements(eventsPage.eventTitle).get(i).getText());
+            Assertions.assertNotNull(driver.findElements(eventsPage.eventDate).get(i).getText());
+            Assertions.assertNotNull(driver.findElements(eventsPage.eventRegistrationStatusClosed).get(i).getText());
+            Assertions.assertNotNull(driver.findElements(eventsPage.eventSpeaker).get(i).getText());
+        }
+        logger.info("Проверили заполнение карточек мероприятий");
     }
 
     /**
@@ -71,14 +92,24 @@ public class ApplicationTests extends SeleniumSettings {
      * 4 Даты проведения мероприятий больше или равны текущей дате (или текущая дата находится в диапазоне дат проведения)
      */
     @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Epic("Otus")
+    @DisplayName("Date validation")
+    @Description("The test describes a scenario in which the validation of the dates of upcoming events is checked. The user navigates to the Upcoming Events tab. The page displays cards of upcoming events, the dates of which are greater than or equal to the current date (or the current date is in the range of dates) ")
     public void dateValidation() throws ParseException {
         EventPlatformToolbar eventPlatformToolbar = PageFactory.initElements(driver, EventPlatformToolbar.class);
         EventsPage eventsPage = PageFactory.initElements(driver, EventsPage.class);
+        Base base = new Base();
 
         eventPlatformToolbar.goToEventsDigitalPlatform();
         eventPlatformToolbar.goToEvents();
         eventsPage.goToUpcomingEventsTab();
-        eventsPage.checkingEventDates();
+        for (int i = 0; i < eventsPage.eventCards().size(); i++) {
+            String startEventDate = base.getStartEventDate(driver.findElements(eventsPage.eventDate).get(i).getText());
+            String endEventDate = base.getEndEventDate(driver.findElements(eventsPage.eventDate).get(i).getText());
+            Assertions.assertTrue((base.getSystemDate().before(base.dateParser(startEventDate)) || base.getSystemDate().after(base.dateParser(endEventDate))) || (base.getSystemDate().before(base.dateParser(endEventDate))));
+        }
+        logger.info("Убедились, что даты проведения мероприятий больше или равны текущей дате (или текущая дата находится в диапазоне дат проведения)");
     }
 
     /**
@@ -89,16 +120,26 @@ public class ApplicationTests extends SeleniumSettings {
      * 4 На странице отображаются карточки прошедших мероприятий. Количество карточек равно счетчику на кнопке Past Events. Даты проведенных мероприятий меньше текущей даты.
      */
     @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Epic("Otus")
+    @DisplayName("View past events")
+    @Description("The test describes a scenario within which a review of past events is carried out. The user navigates to the Past Events tab. Then the events are filtered. The number of cards is equal to the counter on the Past Events button. The dates of the events held are less than the current date ")
     public void viewPastEvents() throws ParseException {
         EventPlatformToolbar eventPlatformToolbar = PageFactory.initElements(driver, EventPlatformToolbar.class);
         EventsPage eventsPage = PageFactory.initElements(driver, EventsPage.class);
+        Base base = new Base();
 
         eventPlatformToolbar.goToEventsDigitalPlatform();
         eventPlatformToolbar.goToEvents();
         eventsPage.goToPastEventsTab();
         eventsPage.filtrationByLocation();
-        eventsPage.checkingPastEventCardsCount();
-        eventsPage.checkingDatesPastEvent();
+        Assertions.assertEquals(eventsPage.eventCards().size(), Integer.parseInt(driver.findElement(eventsPage.pastEventsCount).getText()));
+        logger.info("Убедились, что количество карточек равно счетчику на кнопке Past Events");
+        for (int i = 0; i < eventsPage.eventCards().size(); i++) {
+            String endEventDate = base.getEndEventDate(driver.findElements(eventsPage.eventDate).get(i).getText());
+            Assertions.assertTrue((base.dateParser(endEventDate).before(base.getSystemDate())));
+        }
+        logger.info("Убедились, что даты проведенных мероприятий меньше текущей даты.");
     }
 
     /**
@@ -109,7 +150,11 @@ public class ApplicationTests extends SeleniumSettings {
      * 4 На странице отображаются карточки соответствующие правилам выбранных фильтров
      */
     @Test
-    public void filteringReportsByCategory (){
+    @Severity(SeverityLevel.CRITICAL)
+    @Epic("Otus")
+    @DisplayName("Filtering reports by category")
+    @Description("The test describes a scenario in which reports are filtered by categories. The user navigates to the Talks Library tab. Then the events are filtered. The page displays cards that match the rules of the selected filters ")
+    public void filteringReportsByCategory() {
         EventPlatformToolbar eventPlatformToolbar = PageFactory.initElements(driver, EventPlatformToolbar.class);
         TalksLibraryPage talksLibraryPage = PageFactory.initElements(driver, TalksLibraryPage.class);
         EventViewPage eventViewPage = PageFactory.initElements(driver, EventViewPage.class);
@@ -121,7 +166,10 @@ public class ApplicationTests extends SeleniumSettings {
         talksLibraryPage.selectACategory();
         talksLibraryPage.selectALocation();
         talksLibraryPage.checkingCard();
-        eventViewPage.checkingEventDetail();
+        Assertions.assertEquals(cfg.language(), driver.findElement(eventViewPage.eventLanguage).getText());
+        Assertions.assertEquals(cfg.category(), driver.findElement(eventViewPage.eventCategory).getText());
+        Assertions.assertTrue(driver.findElement(eventViewPage.eventLocation).getText().contains(cfg.libraryLocation()));
+        logger.info("Проверили, что карточка соответствует критериям поиска");
     }
 
     /**
@@ -131,12 +179,21 @@ public class ApplicationTests extends SeleniumSettings {
      * 3 На странице отображаются доклады, содержащие в названии ключевое слово поиска
      */
     @Test
-    public void speechSearchByKeyword () {
+    @Severity(SeverityLevel.CRITICAL)
+    @Epic("Otus")
+    @DisplayName("Speech search by keyword")
+    @Description("The test describes a scenario in which the search for reports by a keyword is carried out. The user navigates to the Talks Library tab. Then he enters the keyword in the search field. The page displays reports containing the search keyword in the title ")
+    public void speechSearchByKeyword() {
         EventPlatformToolbar eventPlatformToolbar = PageFactory.initElements(driver, EventPlatformToolbar.class);
         TalksLibraryPage talksLibraryPage = PageFactory.initElements(driver, TalksLibraryPage.class);
 
         eventPlatformToolbar.goToEventsDigitalPlatform();
         eventPlatformToolbar.goToTalksLibrary();
         talksLibraryPage.searchByKeyword();
+        for (int i = 0; i < driver.findElements(talksLibraryPage.talksCard).size(); i++) {
+            Assertions.assertTrue(driver.findElement(talksLibraryPage.cardLabel).getText().contains(cfg.keyword()));
+        }
+        logger.info("Убедились, что на странице отображаются доклады, содержащие в названии ключевое слово поиска {}", cfg.keyword());
     }
 }
+

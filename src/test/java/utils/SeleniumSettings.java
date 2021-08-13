@@ -7,25 +7,27 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 
-
 import java.util.Locale;
 
 import static com.example.tests.WebDriverFactory.initDriver;
 
+/**
+ * В классе SeleniumSettings осуществляется настройка веб-драйвера
+ */
 public class SeleniumSettings {
 
     protected WebDriver driver;
     private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
 
     @BeforeEach
-    public void startUp(){
+    public void startUp() {
         driver = initDriver(Browsers.valueOf(cfg.browser().toUpperCase(Locale.ROOT)));
         assert driver != null;
         driver.manage().window().maximize();
     }
 
     @AfterEach
-    public void end(){
+    public void end() {
         driver.quit();
     }
 }
