@@ -1,4 +1,4 @@
-package utils;
+package com.example.tests.utils;
 
 import com.example.tests.Browsers;
 import com.example.tests.ServerConfig;

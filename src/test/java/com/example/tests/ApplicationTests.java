@@ -1,13 +1,6 @@
 package com.example.tests;
 
-import com.example.tests.pages.EventPlatformToolbar;
-import com.example.tests.pages.EventViewPage;
-import com.example.tests.pages.EventsPage;
-import com.example.tests.pages.TalksLibraryPage;
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.*;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.support.PageFactory;
-import utils.Base;
-import utils.SeleniumSettings;
+import com.example.tests.pages.*;
+import com.example.tests.utils.*;
 
 import java.text.ParseException;
 
