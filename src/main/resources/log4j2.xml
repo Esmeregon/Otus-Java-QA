@@ -1,4 +1,4 @@
-?import org.apache.logging.log4j.core.config.Configuration?>
+<?import org.apache.logging.log4j.core.config.Configuration?>
 <Configuration monitorInterval="30">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">

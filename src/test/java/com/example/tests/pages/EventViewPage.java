@@ -1,4 +1,4 @@
-package pages;
+package com.example.tests.pages;
 
 import com.example.tests.ServerConfig;
 import org.aeonbits.owner.ConfigFactory;

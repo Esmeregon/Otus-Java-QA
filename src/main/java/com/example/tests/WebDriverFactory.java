@@ -41,7 +41,7 @@ public class WebDriverFactory {
                 WebDriverManager.operadriver().setup();
                 return new OperaDriver();
             default:
-                return null;
+                return new ChromeDriver();
         }
     }
 
@@ -57,7 +57,7 @@ public class WebDriverFactory {
                 WebDriverManager.operadriver().setup();
                 return new OperaDriver((OperaOptions) wdOptions);
             default:
-                return null;
+                return new ChromeDriver((ChromeOptions) wdOptions);
         }
     }
 }

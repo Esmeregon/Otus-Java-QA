@@ -1,8 +1,7 @@
-package pages;
+package com.example.tests.pages;
 
 import com.example.tests.ApplicationTests;
-import com.example.tests.ServerConfig;
-import org.aeonbits.owner.ConfigFactory;
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -20,7 +19,6 @@ import java.util.List;
  */
 public class EventsPage {
 
-    private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
     private final Logger logger = LogManager.getLogger(ApplicationTests.class);
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -50,6 +48,7 @@ public class EventsPage {
     /**
      * В методе goToUpcomingEventsTab() осуществляется переход на вкладку Upcoming Events
      */
+    @Step("Go to the Upcoming Events tab")
     public void goToUpcomingEventsTab() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(upcomingEventsTab));
         driver.findElement(upcomingEventsTab).click();
@@ -69,6 +68,7 @@ public class EventsPage {
     /**
      * В методе goToPastEventsTab() осуществляется переход на вкладку Past Events
      */
+    @Step("Go to the Past Events tab")
     public void goToPastEventsTab() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(pastEventsTab));
         driver.findElement(pastEventsTab).click();
@@ -78,12 +78,15 @@ public class EventsPage {
 
     /**
      * В методе filtrationByLocation() осуществляется фильтрация карточек по территории
+     *
+     * @param location территории
      */
-    public void filtrationByLocation() {
+    @Step("Filtering by Location")
+    public void filtrationByLocation(String location) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(eventCards));
         driver.findElement(locationFilter).click();
-        driver.findElement(By.xpath("//label[@data-value= '" + cfg.location() + "']")).click();
+        driver.findElement(By.xpath("//label[@data-value= '" + location + "']")).click();
         wait.until(ExpectedConditions.stalenessOf(driver.findElements(eventCards).get(0)));
-        logger.info("Отфильтровали по Location");
+        logger.info("Отфильтровали по Location - {}", location);
     }
 }

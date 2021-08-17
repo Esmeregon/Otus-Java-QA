@@ -1,8 +1,7 @@
-package pages;
+package com.example.tests.pages;
 
 import com.example.tests.ApplicationTests;
-import com.example.tests.ServerConfig;
-import org.aeonbits.owner.ConfigFactory;
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -15,7 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class TalksLibraryPage {
 
-    private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
     private final Logger logger = LogManager.getLogger(ApplicationTests.class);
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -42,7 +40,8 @@ public class TalksLibraryPage {
     /**
      * В методе viewFilters() осуществляется раскрытие панели фильтров
      */
-    public void viewFilters() {
+    @Step("clicked on More filters")
+    public void clickedOnMoreFilters() {
         wait.until(ExpectedConditions.elementToBeClickable(moreFiltersButton));
         driver.findElement(moreFiltersButton).click();
         logger.info("Нажали на More Filters");
@@ -50,47 +49,57 @@ public class TalksLibraryPage {
 
     /**
      * В методе selectACategory() осуществляется фильтрация по категории
+     *
+     * @param category категория
      */
-    public void selectACategory() {
+    @Step("Adding a filter by Category")
+    public void selectACategoryFilter(String category) {
         wait.until(ExpectedConditions.elementToBeClickable(categoryFilter));
         driver.findElement(categoryFilter).click();
-        wait.until(ExpectedConditions.elementToBeClickable((By.xpath("//label[@data-value= '" + cfg.category() + "']"))));
-        driver.findElement(By.xpath("//label[@data-value= '" + cfg.category() + "']")).click();
+        wait.until(ExpectedConditions.elementToBeClickable((By.xpath("//label[@data-value= '" + category + "']"))));
+        driver.findElement(By.xpath("//label[@data-value= '" + category + "']")).click();
         wait.until(ExpectedConditions.stalenessOf(driver.findElements(talksCard).get(0)));
         driver.findElement(categoryFilter).click();
-        logger.info("Отфильтровали по Category");
+        logger.info("Отфильтровали по Category - {}", category);
     }
 
     /**
      * В методе selectALocation() осуществляется фильтрация по территории
+     *
+     * @param location территория
      */
-    public void selectALocation() {
+    @Step("Adding a filter by Location")
+    public void selectALocationFilter(String location) {
         wait.until(ExpectedConditions.elementToBeClickable(locationFilter));
         driver.findElement(locationFilter).click();
-        wait.until(ExpectedConditions.elementToBeClickable((By.xpath("//label[@data-value= '" + cfg.libraryLocation() + "']"))));
-        driver.findElement(By.xpath("//label[@data-value= '" + cfg.libraryLocation() + "']")).click();
+        wait.until(ExpectedConditions.elementToBeClickable((By.xpath("//label[@data-value= '" + location + "']"))));
+        driver.findElement(By.xpath("//label[@data-value= '" + location + "']")).click();
         wait.until(ExpectedConditions.stalenessOf(driver.findElements(talksCard).get(0)));
         driver.findElement(locationFilter).click();
-        logger.info("Отфильтровали по Location");
+        logger.info("Отфильтровали по Location - {}", location);
     }
 
     /**
      * В методе selectALanguage() осуществляется фильтрация по языку
+     *
+     * @param language язык
      */
-    public void selectALanguage() {
+    @Step("Adding a filter by Language")
+    public void selectALanguageFilter(String language) {
         wait.until(ExpectedConditions.elementToBeClickable(languageFilter));
         driver.findElement(languageFilter).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@data-value= '" + cfg.language() + "']")));
-        driver.findElement(By.xpath("//label[@data-value= '" + cfg.language() + "']")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@data-value= '" + language + "']")));
+        driver.findElement(By.xpath("//label[@data-value= '" + language + "']")).click();
         wait.until(ExpectedConditions.stalenessOf(driver.findElements(talksCard).get(0)));
         driver.findElement(languageFilter).click();
-        logger.info("Отфильтровали по Language");
+        logger.info("Отфильтровали по Language - {}", language);
     }
 
     /**
      * В методе checkingCard() осуществляется переход на карточку события
      */
-    public void checkingCard() {
+    @Step("Go to the event card ")
+    public void goToEventCard() {
         wait.until(ExpectedConditions.elementToBeClickable(talksCard));
         driver.findElements(talksCard).get(0).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(eventLanguage));
@@ -99,12 +108,15 @@ public class TalksLibraryPage {
 
     /**
      * В методе searchByKeyword() осуществляется поиск по ключевому слову
+     *
+     * @param keyword ключевое слово
      */
-    public void searchByKeyword() {
+    @Step("Search by keyword ")
+    public void searchByKeyword(String keyword) {
         wait.until(ExpectedConditions.elementToBeClickable(talksCard));
         driver.findElement(searchField).clear();
-        driver.findElement(searchField).sendKeys(cfg.keyword());
+        driver.findElement(searchField).sendKeys(keyword);
         wait.until(ExpectedConditions.stalenessOf(driver.findElements(talksCard).get(0)));
-        logger.info("Осуществили поиск по ключевому слову");
+        logger.info("Осуществили поиск по ключевому слову - {}", keyword);
     }
 }

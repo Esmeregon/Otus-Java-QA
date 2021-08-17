@@ -13,7 +13,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Otus-Java-QA" options="-parameters" />
+      <module name="Otus-Java-QA" options="" />
     </option>
   </component>
 </project>
