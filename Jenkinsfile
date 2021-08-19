@@ -17,7 +17,7 @@ pipeline {
 
     parameters {
         string(name: 'GIT_URL', defaultValue: 'https://github.com/Esmeregon/Otus-Java-QA.git', description: 'The target git url')
-        string(name: 'GIT_BRANCH', defaultValue: 'allure', description: 'The target git branch')
+        string(name: 'GIT_BRANCH', defaultValue: 'epam', description: 'The target git branch')
     }
 
     stages {
