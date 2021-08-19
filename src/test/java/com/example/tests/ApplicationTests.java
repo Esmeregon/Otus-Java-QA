@@ -1,20 +1,25 @@
 package com.example.tests;
 
+import com.example.tests.pages.EventPlatformToolbar;
+import com.example.tests.pages.EventViewPage;
+import com.example.tests.pages.EventsPage;
+import com.example.tests.pages.TalksLibraryPage;
+import com.example.tests.utils.Base;
+import com.example.tests.utils.SeleniumSettings;
 import io.qameta.allure.*;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
+
 import org.openqa.selenium.support.PageFactory;
-import com.example.tests.pages.*;
-import com.example.tests.utils.*;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.text.ParseException;
 
+@SpringBootTest
 @Execution(ExecutionMode.CONCURRENT)
 @Epic("Otus")
 public class ApplicationTests extends SeleniumSettings {
@@ -27,7 +32,7 @@ public class ApplicationTests extends SeleniumSettings {
      * 1 Пользователь переходит на вкладку events
      * 2 На странице отображаются карточки предстоящих мероприятий. Количество карточек равно счетчику на кнопке Upcoming Events
      */
-    @Test
+    @org.junit.jupiter.api.Test
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("View upcoming events")
     @Description("The test describes a scenario in which the user goes to the events tab. The page displays cards for upcoming events. The number of cards is equal to the counter on the Upcoming Events button ")
@@ -53,7 +58,7 @@ public class ApplicationTests extends SeleniumSettings {
      * информация о регистрации
      * список спикеров // Минимально достаточное - проверить одну карточку. В идеале все что отображаются.
      */
-    @Test
+    @org.junit.jupiter.api.Test
     @Severity(SeverityLevel.BLOCKER)
     @DisplayName("View card info")
     @Description("The test describes a scenario in which the event cards are viewed. The user navigates to the events tab. Goes to the Past Events tab. The page displays cards for upcoming events. The card contains information about the event")
@@ -81,7 +86,7 @@ public class ApplicationTests extends SeleniumSettings {
      * 3 На странице отображаются карточки предстоящих мероприятий.
      * 4 Даты проведения мероприятий больше или равны текущей дате (или текущая дата находится в диапазоне дат проведения)
      */
-    @Test
+    @org.junit.jupiter.api.Test
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Date validation")
     @Description("The test describes a scenario in which the validation of the dates of upcoming events is checked. The user navigates to the Upcoming Events tab. The page displays cards of upcoming events, the dates of which are greater than or equal to the current date (or the current date is in the range of dates) ")
@@ -109,7 +114,7 @@ public class ApplicationTests extends SeleniumSettings {
      * 3 Пользователь нажимает на Location в блоке фильтров и выбирает Canada в выпадающем списке
      * 4 На странице отображаются карточки прошедших мероприятий. Количество карточек равно счетчику на кнопке Past Events. Даты проведенных мероприятий меньше текущей даты.
      */
-    @Test
+    @org.junit.jupiter.api.Test
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("View past events")
     @Description("The test describes a scenario within which a review of past events is carried out. The user navigates to the Past Events tab. Then the events are filtered. The number of cards is equal to the counter on the Past Events button. The dates of the events held are less than the current date ")
@@ -138,7 +143,7 @@ public class ApplicationTests extends SeleniumSettings {
      * 3 Пользователь выбирает: Category – Testing, Location – Belarus, Language – English, На вкладке фильтров
      * 4 На странице отображаются карточки соответствующие правилам выбранных фильтров
      */
-    @Test
+    @org.junit.jupiter.api.Test
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Filtering reports by category")
     @Description("The test describes a scenario in which reports are filtered by categories. The user navigates to the Talks Library tab. Then the events are filtered. The page displays cards that match the rules of the selected filters ")
@@ -166,7 +171,7 @@ public class ApplicationTests extends SeleniumSettings {
      * 2 Пользователь вводит ключевое слово QA в поле поиска
      * 3 На странице отображаются доклады, содержащие в названии ключевое слово поиска
      */
-    @Test
+    @org.junit.jupiter.api.Test
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Speech search by keyword")
     @Description("The test describes a scenario in which the search for reports by a keyword is carried out. The user navigates to the Talks Library tab. Then he enters the keyword in the search field. The page displays reports containing the search keyword in the title ")
